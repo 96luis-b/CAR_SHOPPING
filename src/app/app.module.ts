@@ -10,11 +10,13 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 
 import { HttpProvider } from '../providers/http/http';
+import { Service } from '../service/service.service';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -23,13 +25,15 @@ import { HttpProvider } from '../providers/http/http';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HttpProvider
+    HttpProvider,
+    Service
   ]
 })
 export class AppModule {}
