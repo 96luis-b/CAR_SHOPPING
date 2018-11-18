@@ -7,12 +7,23 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>my-products</ion-title>
+    <ion-title>myProducts</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <!--
+  <ion-card class="cardList">
+    <ion-list>
+	  <button ion-item *ngFor="let product of products" class="noteItem" (click)="goToDetail(product.id)">{{product.title}}</button>
+    </ion-list>
+  </ion-card>
+-->
+  <div>
+	<div>
+		<button ion-button block class="createProduct" (click)="createProduct()">Agregar producto</button>
+	  </div>
+  </div>
 </ion-content>

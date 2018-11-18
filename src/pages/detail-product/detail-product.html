@@ -1,0 +1,47 @@
+<!--
+  Generated template for the DetailProductPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>detailProduct</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-list>
+		<ion-item>
+			<ion-label class="label" floating>Titulo</ion-label>
+			<ion-input [(ngModel)]="product.title"></ion-input>
+		</ion-item>
+		
+		<ion-item>
+			<ion-label class="label" floating>Descripcion</ion-label>
+			<ion-textarea [(ngModel)]="product.description" rows="7"></ion-textarea>
+		</ion-item>
+		
+		<ion-item>
+				<ion-label floating>Precio</ion-label>
+				<ion-input type="number"[(ngModel)]="product.price"></ion-input>
+		</ion-item>
+			
+		<ion-item>
+				<ion-label floating>Exitencia</ion-label>
+				<ion-input type="number"[(ngModel)]="product.exitencia"></ion-input>
+		</ion-item>
+		
+		<div class="containerButton">
+			<div>
+				<button ion-button block outline class="addNote" (click)="addProduct()">Guardar Nota</button>
+			</div>
+			<div>
+				<button ion-button block outline class="deleteNote" *ngIf="id != 0" (click)="deleteProduct">Eliminar nota</button>
+			</div>
+		</div>
+	</ion-list>
+</ion-content>

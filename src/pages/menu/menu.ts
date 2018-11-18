@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Nav } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { MyProductsPage } from '../my-products/my-products';
-
+import { ConfigPage } from '../config/config';
 
 /**
  * Generated class for the MenuPage page.
@@ -25,7 +25,7 @@ export class MenuPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.pages = [
-      //{title: 'Agregar producto', component: AddProductPage, icon:'add'},
+      {title: 'Configuraciones', component: ConfigPage, icon:'add'},
       {title: 'Mis Productos', component: MyProductsPage, icon:'add'}
       //{title: 'Configuracion', component: ConfigPage, icon:'add'}
       ];

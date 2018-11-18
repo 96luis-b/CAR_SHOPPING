@@ -14,7 +14,10 @@ import { MyProductsPage } from '../pages/my-products/my-products';
 import { ProfilePage } from '../pages/profile/profile';
 import { TabsPage } from '../pages/tabs/tabs';
 import { MenuPage } from '../pages/menu/menu';
-
+import { DetailProductPage } from '../pages/detail-product/detail-product';
+import { ConfigPage } from '../pages/config/config';
+import { MyDataPage } from '../pages/my-data/my-data';
+ 
 
 import { HttpClientModule } from '@angular/common/http';
 import { HttpProvider } from '../providers/http/http';
@@ -31,7 +34,10 @@ import { Service } from '../service/service.service';
     MyProductsPage,
     ProfilePage,
     TabsPage,
-    MenuPage
+    MenuPage,
+    DetailProductPage,
+    ConfigPage,
+    MyDataPage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +54,10 @@ import { Service } from '../service/service.service';
     MyProductsPage,
     ProfilePage,
     TabsPage,
-    MenuPage
+    MenuPage,
+    DetailProductPage,
+    ConfigPage,
+    MyDataPage
   ],
   providers: [
     StatusBar,

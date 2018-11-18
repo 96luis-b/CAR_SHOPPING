@@ -44,7 +44,13 @@ export class HttpProvider {
   
   addProduct(product):Observable<any>{
 	  return this.http.post(`${this.url}/`, {product}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
+  }
+  
+  updateNote(product):Observable<any>{
+	  return this.http.post(`${this.url}/`, {product}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
 	}
 
-
+  deleteNote(product):Observable<any>{
+	  return this.http.post(`${this.url}/`, {product}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
+	}
 }
