@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Nav } from 'ionic-angular';
+import { TabsPage } from '../tabs/tabs';
+import { MyProductsPage } from '../my-products/my-products';
+
 
 /**
  * Generated class for the MenuPage page.
@@ -15,11 +18,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MenuPage {
 
+  @ViewChild(Nav) nav:Nav;
+  rootPage: any = TabsPage;
+  pages: Array<{title: string, component: any, icon: string}>;
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.pages = [
+      //{title: 'Agregar producto', component: AddProductPage, icon:'add'},
+      {title: 'Mis Productos', component: MyProductsPage, icon:'add'}
+      //{title: 'Configuracion', component: ConfigPage, icon:'add'}
+      ];
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MenuPage');
   }
+
+  openPage(page){
+    console.log( page.component)
+    console.log("nextPage:    " + page.title)
+      this.nav.push(page.component);
+    }
 
 }

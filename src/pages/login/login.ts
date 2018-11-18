@@ -38,20 +38,24 @@ export class LoginPage {
   }
 
   login(){
+    /*
     if(this.service.notNullValueLogin(this.user)){
       return;
     }
+  
     this.http.login(this.path, this.user).subscribe(data => {
       if(data.status >= 200 && data.status < 300){
         window.localStorage.setItem("user",this.user.username);
+*/
         this.navCtrl.setRoot(MenuPage);
+/*
       }
       this.service.Alert(data.message, "Ok para continuar");
     }, error => {
       this.service.Alert("Error de conexion", "Intente mas tarde")
       console.log(error);
     })
-
+  */
   }
 
   goToSignup(){

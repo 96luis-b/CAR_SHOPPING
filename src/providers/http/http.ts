@@ -21,4 +21,30 @@ export class HttpProvider {
     return this.http.post(`${this.url}${path.path}`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
   }
 
+  signUp(user):Observable<any>{
+    return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+  }
+
+
+  getDataUserProfile(user):Observable<any>{
+    return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+  }
+
+  updateUserProfile(user):Observable<any>{
+	  return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
+  }
+  
+  deleteUserProfile(user):Observable<any>{
+	  return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+  }
+  
+  myProductList(user):Observable<any>{
+    return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+  }
+  
+  addProduct(product):Observable<any>{
+	  return this.http.post(`${this.url}/`, {product}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
+	}
+
+
 }

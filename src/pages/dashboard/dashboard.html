@@ -1,0 +1,54 @@
+
+<!--
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start left>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Edit Profile</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="edit()">
+        <ion-icon name="checkmark" color="primary"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+-->
+
+
+<ion-header>
+    <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+      <ion-title>Catalogo</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content padding >
+   
+   
+       <div class="content">
+      <div>
+    
+        <ion-item>
+          <ion-label floating>Search</ion-label>
+          <ion-input type="text"[(ngModel)]="name"></ion-input>
+        </ion-item>
+        <button ion-button block class="buttonSearch" [disabled]="!name"  (click)="getBOOKS(name)"><ion-icon name="search"></ion-icon></button>
+      </div>
+       </div>
+     
+    <!--
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  -->
+  </ion-content>
+  
