@@ -11,8 +11,8 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class HttpProvider {
 
-  url = "https://localhost:8080/SHOPPING_CAR"
-
+  //url = "http://localhost:8080/SHOPPING_CAR/"; 
+  url = "http://192.168.43.92:8080/SHOPPING_CAR/"; 
   constructor(public http: HttpClient) {
     console.log('Hello HttpProvider Provider');
   }
@@ -22,15 +22,16 @@ export class HttpProvider {
   }
 
   signUp(user):Observable<any>{
-    return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+    return this.http.post(`${this.url}`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
   }
 
 
   getDataUserProfile(user):Observable<any>{
-    return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+    return this.http.post(`${this.url}`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
   }
 
   updateUserProfile(user):Observable<any>{
+	console.log(user)
 	  return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
   }
   
@@ -42,15 +43,31 @@ export class HttpProvider {
     return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
   }
   
-  addProduct(product):Observable<any>{
-	  return this.http.post(`${this.url}/`, {product}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
+  detailMyProduct(user):Observable<any>{
+	console.log(user)
+	return this.http.post(`${this.url}/`,{user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
   }
   
-  updateNote(product):Observable<any>{
-	  return this.http.post(`${this.url}/`, {product}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
+  addProduct(user):Observable<any>{
+	console.log(user);
+	  return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
+  }
+  
+  updateProduct(user):Observable<any>{
+	  return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
 	}
 
-  deleteNote(product):Observable<any>{
-	  return this.http.post(`${this.url}/`, {product}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
-	}
+  deleteProduct(user):Observable<any>{
+	  return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
+  }
+  
+  
+  
+  /*
+  session(path, user):Observable<any>{
+    return this.http.post(`${this.url}${path.path}`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
+  }
+  */
+  
+
 }

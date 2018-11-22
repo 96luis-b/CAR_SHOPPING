@@ -22,6 +22,7 @@ import { MyDataPage } from '../pages/my-data/my-data';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpProvider } from '../providers/http/http';
 import { Service } from '../service/service.service';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { Service } from '../service/service.service';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
+	IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

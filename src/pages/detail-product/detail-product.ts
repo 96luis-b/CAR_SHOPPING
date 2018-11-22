@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { Service } from '../../service/service.service';
 import { DashboardPage } from '../dashboard/dashboard'
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the DetailProductPage page.
@@ -18,35 +19,45 @@ import { DashboardPage } from '../dashboard/dashboard'
 })
 export class DetailProductPage {
 
-  product = {id:null, title:'', description:'', price:0, exitencia: 0};
+  product = {id:null, title:'', description:'', price:null, existence: null};
 	data = {
-			id_product:null,
+			id:null,
 			user:null,
-			path:null,
-      };
+			product:null,
+			path:null
+			};
+	package = {
+			   data:null,
+			   product:null
+			   }
   id;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public http: HttpProvider,
-              public service: Service){
-/*
+              public service: Service,
+			  public storage: Storage){
+			  this.id = navParams.get("id");
+			  console.log(this.product);
+			  console.log(this.id);
+	
     this.storage.get('user').then((data) => {
-      var user = JSON.parse(data);
-      this.data.user = user;
-      });
+      console.log(data)
+      this.data.user = data;
+	  
+	  if(this.id!=0){
+		  this.data.id = this.id;
+		  this.data.path = "detailMyProduct"
+		  this.http.detailMyProduct(this.data).subscribe(res=>{
+		  this.product = res.product;
+		  console.log(this.product)
+		  console.log(res);
+		  })
+		console.log(this.data);
+		}
+	  
+    });
 
-    this = navParams.get("id");
-
-    if(this.id!=0){
-      this.data.id = this.id;
-      this.data.path = "myProductList"
-      http.myProductList(this.data).subscribe(res=>{
-      this.note = res.note;
-      })
-      
-    }
-*/
   }
 
   ionViewDidLoad() {
@@ -54,9 +65,10 @@ export class DetailProductPage {
   }
 
   addProduct(){
+	 this.data.product = this.product;
     if(this.id != 0){
       this.data.path = "updateProduct";
-      this.http.updateNote(this.data).subscribe(data=>{
+      this.http.updateProduct(this.data).subscribe(data=>{
         this.service.Alert(data.message," OK para continuar");
         this.navCtrl.pop();
         return;
@@ -64,6 +76,7 @@ export class DetailProductPage {
       
     }else{
       this.data.path = "craeteProduct"; 
+	  console.log(this.data)
       this.http.addProduct(this.data).subscribe(data=>{
         this.service.Alert(data.message,"OK para continuar");
         this.navCtrl.pop();
@@ -73,10 +86,10 @@ export class DetailProductPage {
 }
 
 deleteProduct(){
-    this.data.path = "deleteNote"; 
-    this.http.deleteNote(this.data).subscribe(data=>{
+    this.data.path = "deleteProduct"; 
+    this.http.deleteProduct(this.data).subscribe(data=>{
         this.service.Alert(data.message," OK para continuar");
-        this.navCtrl.setRoot(DashboardPage);
+        this.navCtrl.pop();
       })
   }
 

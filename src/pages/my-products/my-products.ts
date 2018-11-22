@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { DetailProductPage } from '../detail-product/detail-product';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the MyProductsPage page.
@@ -20,20 +21,16 @@ export class MyProductsPage {
   products = [];
 	data = {
 			username:"",
-			path:"productList"
+			path:"myProductList"
 			}
 
   constructor(public navCtrl: NavController, 
-              public navParams: NavParams) {
-                /*
-          this.storage.get('user').then((data) => {
-            this.data.username = data;
-            this.http.myProductList(this.data).subscribe(res=>{
-            
-              this.products = res.products;
-            });
-          });
-          */
+              public navParams: NavParams,
+			  public storage: Storage,
+			  public http: HttpProvider) {
+                
+          this.refresh();
+          
   }
 
   ionViewDidLoad() {
@@ -49,5 +46,15 @@ export class MyProductsPage {
       this.navCtrl.push(DetailProductPage,{id:0});
   }
 
+  refresh(){
+	this.storage.get('user').then((data) => {
+            this.data.username = data;
+            this.http.myProductList(this.data).subscribe(res=>{
+            
+              this.products = res.products;
+			  console.log(res);
+            });
+          });
+  }
 
 }

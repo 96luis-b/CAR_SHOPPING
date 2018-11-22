@@ -41,12 +41,9 @@ export class ProfilePage {
   }
 
   openPage(page: PageInterface){
-    let params = {};
+    //let params = {};
   
       this.nav.setRoot(page.pageName);
-      
-    
-    
     }
 
   isActive(page: PageInterface){

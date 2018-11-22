@@ -7,20 +7,27 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>myProducts</ion-title>
+    <ion-title>Mis Productos</ion-title>
+	<ion-buttons end>
+      <button ion-button icon-only (click)="refresh()">
+	  <ion-icon  name="refresh"></ion-icon>
+	  </button>
+    </ion-buttons>
+    
+	
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <!--
+  
   <ion-card class="cardList">
     <ion-list>
-	  <button ion-item *ngFor="let product of products" class="noteItem" (click)="goToDetail(product.id)">{{product.title}}</button>
+	  <button ion-item *ngFor="let product of products" (click)="goToDetail(product.id)">{{product.title}}</button>
     </ion-list>
   </ion-card>
--->
+
   <div>
 	<div>
 		<button ion-button block class="createProduct" (click)="createProduct()">Agregar producto</button>

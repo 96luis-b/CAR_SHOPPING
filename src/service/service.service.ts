@@ -7,9 +7,9 @@ export class Service{
 
     
     constructor(public alertCtrl: AlertController,
-        private toastCtrl: ToastController,
-        public http: HttpProvider
-        ){}
+				private toastCtrl: ToastController,
+				public http: HttpProvider
+				){}
     
     Alert(title, subtitle){
         let alert = this.alertCtrl.create({
@@ -24,45 +24,29 @@ export class Service{
 	 /*
 	 showConfirm(){
 		const confirm = this.alertCtrl.create({
-			title: ¿Estas seguro?,
+			title: '¿Estas seguro?',
 			message: 'Al aseptar, se borrara tu cuenta permanentemente',
 			buttons:[
 				{
 				text:'Cancelar',
 				handler: ()=>{
+					return false;
 					console.log("se a cancelado")					
 					}
 				},
 				{
 				text:'Si',
 				handler: ()=>{
-				
-					this.http.deleteUserProfile(data).subscribe(data=>{
-						 if(data.status >= 200 && data.status < 300){
-							//this.data = data.data;
-							this.navCtrl.setRoot(HomePage);
-						}
-						this.service.Alert(data.message,"OK para continuar");
-					  
-					})
-					console.log("se a eliminado la cuenta")
+					return true;
+					console.log("se a eliminara esta cuenta")
 					}
 				}
 			]
 		})
      }
-     
      */
+     
 
-      /**
-       * persentToast()   METHOD
-       * es una notificacion sutil, puede utilizrse
-       * para proporcinar comentarios sobre una operacion
-       * o mostrar un mensaje de sistema
-       * @param message // mensaje que se quiere mostrar
-       * @param time  //tiempo de duracion del toast
-       * @param position  // desde donde se mostrara el toast
-       */
       presentToast(message, time, position){
 		let toast = this.toastCtrl.create({
 			message: message,
@@ -93,6 +77,10 @@ export class Service{
 		  return true;
 	  }
   }
+  
+   /**
+   * notNullValueSignUp
+   */
 
   public notNullValueSignUp(json){
 	  console.log(json);
@@ -105,6 +93,7 @@ export class Service{
 		  this.Alert('Las contraseñas introducidas no coinciden','Por favor intente de nuevo');   
 		  return true      
 	  }
+	  //else if("la contraseña no debe contener menos de ocho caracteres"){}
 	  
   }
   
@@ -121,3 +110,24 @@ export class Service{
 }
 
 
+/*
+
+ionic cordova plugin add cordova-sqlite-storage
+Next, install the package (comes by default for Ionic apps > Ionic V1):
+
+npm install --save @ionic/storage
+Next, add it to the imports list in your NgModule declaration (for example, in src/app/app.module.ts):
+
+import { IonicStorageModule } from '@ionic/storage';
+
+@NgModule({
+  declarations: [
+    // ...
+  ],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
+  ],
+  
+  */

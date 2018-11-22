@@ -1,8 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Nav } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Nav, AlertController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { MyProductsPage } from '../my-products/my-products';
 import { ConfigPage } from '../config/config';
+import { Storage } from '@ionic/storage';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the MenuPage page.
@@ -23,10 +25,16 @@ export class MenuPage {
   pages: Array<{title: string, component: any, icon: string}>;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+			  public navParams: NavParams,
+			  public alertCtrl: AlertController,
+			  public storage: Storage) {
     this.pages = [
-      {title: 'Configuraciones', component: ConfigPage, icon:'add'},
-      {title: 'Mis Productos', component: MyProductsPage, icon:'add'}
+	  {title: 'Mis Productos', component: MyProductsPage, icon:'ios-list-outline'},
+      {title: 'Configuraciones', component: ConfigPage, icon:'settings'}
+														//cog
+														//construct
+														//settings
       //{title: 'Configuracion', component: ConfigPage, icon:'add'}
       ];
   }
@@ -35,10 +43,39 @@ export class MenuPage {
     console.log('ionViewDidLoad MenuPage');
   }
 
+  
+	  Alert(){
+        let alert = this.alertCtrl.create({
+            title:"¿Estas seguro?",
+            buttons: [
+			   {
+				text:"Si", 
+				handler: ()=>{
+					console.log("se cerrara la sesion");
+					this.storage.clear().then(() => {});
+					this.navCtrl.setRoot(HomePage)
+					}
+			   },
+				{
+				text:"Cancelar",
+				handler: ()=>{
+					console.log("Cancelado");						
+				}
+			}
+			]
+        });
+        alert.present();
+    }
+  
+  
+  
   openPage(page){
-    console.log( page.component)
-    console.log("nextPage:    " + page.title)
       this.nav.push(page.component);
     }
 
+	logOut(){
+		this.Alert();
+	}
+	
+	
 }

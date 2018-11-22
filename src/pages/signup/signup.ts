@@ -27,7 +27,6 @@ export class SignupPage {
     confirPassword:"",
     path:"signUp"
     }
-//path = {path:'register'}
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -59,7 +58,7 @@ export class SignupPage {
 	this.http.signUp(this.user).subscribe(data => {
       if(data.status >= 200 && data.status < 300){
 		  console.log(data);
-		 // this.navCtrl.pop();
+		  this.navCtrl.pop();
 		  }
 		  this.Alert(data.message,"Presione OK para continuar");
 	  },error => {
