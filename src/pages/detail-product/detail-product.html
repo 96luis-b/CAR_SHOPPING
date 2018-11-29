@@ -9,7 +9,7 @@
   <ion-navbar>
     <ion-title>Detalle de Producto</ion-title>
 	<ion-buttons end>
-      <button ion-button icon-only *ngIf="id != 0" (click)="deleteProduct()">
+      <button ion-button icon-only *ngIf="id_product != 0" (click)="deleteProduct()">
 		<ion-icon  name="trash"></ion-icon>
 	  </button>
     </ion-buttons>
@@ -21,8 +21,8 @@
 <ion-content padding>
 	<ion-list>
 		<ion-item>
-			<ion-label class="label" floating>Titulo</ion-label>
-			<ion-input [(ngModel)]="product.title"></ion-input>
+			<ion-label class="label" floating>Producto</ion-label>
+			<ion-input [(ngModel)]="product.name_product"></ion-input>
 		</ion-item>
 		
 		<ion-item>
@@ -36,19 +36,15 @@
 		</ion-item>
 			
 		<ion-item>
-				<ion-label floating>Existencia</ion-label>
-				<ion-input type="number"[(ngModel)]="product.existence"></ion-input>
+			<ion-label floating>Existencia</ion-label>
+			<ion-input type="number"[(ngModel)]="product.existence"></ion-input>
 		</ion-item>
+		
 		
 		<div class="containerButton">
 			<div>
 				<button ion-button block outline class="addNote" (click)="addProduct()">Guardar producto</button>
 			</div>
-		<!--	
-			<div>
-				<button ion-button block outline class="deleteNote" *ngIf="id != 0" (click)="deleteProduct()">Eliminar producto</button>
-			</div>
-		-->
 		</div>
 	</ion-list>
 </ion-content>

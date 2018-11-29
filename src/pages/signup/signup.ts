@@ -48,6 +48,8 @@ export class SignupPage {
   }
 
   signUp(){
+	this.service.loadingSpinner();
+	this.service.loading.present();
 	console.log("por aqui signUp")
     if(this.service.notNullValueSignUp(this.user)){
 		console.log("no se hizo la peticion")
@@ -58,6 +60,7 @@ export class SignupPage {
 	this.http.signUp(this.user).subscribe(data => {
       if(data.status >= 200 && data.status < 300){
 		  console.log(data);
+		  this.service.loading.dismiss();
 		  this.navCtrl.pop();
 		  }
 		  this.Alert(data.message,"Presione OK para continuar");

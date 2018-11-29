@@ -32,32 +32,23 @@
   
   
   <ion-content padding >
+	<!--
 	<div>
 		<ion-item>
 		  <ion-label floating>Buscar</ion-label>
 		  <ion-input type="text"[(ngModel)]="name"></ion-input>
 		</ion-item>
-		<button ion-button block class="buttonSearch" [disabled]="!name"  (click)="searchProduct()"><ion-icon name="search"></ion-icon></button>
+		<button ion-button block class="buttonSearch" [disabled]="!name"  (click)="searchProduct()"><ion-icon name="search"></ion-icon> name</button>
 	</div>
+ 
+  -->
   
-	<!--
-	<ion-card class="cardList">
-		<ion-list>
-		  <button ion-item *ngFor="let note of notes" class="noteItem" (click)="goToDetail(note.id)">{{note.title}}</button>
-		</ion-list>
-	</ion-card>
-	-->
-	<ion-list>
-		<ion-item class="item" *ngFor="let product of products">
-			<!--
-		 <div *ngIf="!(book.volumeInfo.imageLinks == undefined)">
-			<img src="{{book.volumeInfo.imageLinks.smallThumbnail}}" alt="*" />
-		  </div>
-		  -->
-
-		  <h1>{{product.title}}</h1>
-		</ion-item>
-	</ion-list>
+<ion-searchbar [(ngModel)]="search" (ionInput)="searchProduct($event)"></ion-searchbar>
+  <ion-list inset *ngIf="search != ''">
+	<button ion-item *ngFor="let p of product" (click)="viewList(p.id_product, p)">
+		{{p.name_product}}
+	</button>
+  </ion-list>
    
       
      

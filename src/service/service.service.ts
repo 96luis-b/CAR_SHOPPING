@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
-import { AlertController, ToastController} from 'ionic-angular';
+import { AlertController, ToastController, LoadingController} from 'ionic-angular';
 import { HttpProvider } from '../providers/http/http';
 
 @Injectable()
 export class Service{
 
-    
+    loading;
+	toast;
     constructor(public alertCtrl: AlertController,
 				private toastCtrl: ToastController,
-				public http: HttpProvider
-				){}
+				public http: HttpProvider,
+				public loadingCtrl: LoadingController
+				){
+				console.log("service")
+				this.loadingSpinner();
+				//this.presentToast();
+		}
     
     Alert(title, subtitle){
         let alert = this.alertCtrl.create({
@@ -19,51 +25,38 @@ export class Service{
         });
         alert.present();
     }
-
-
-	 /*
-	 showConfirm(){
-		const confirm = this.alertCtrl.create({
-			title: '¿Estas seguro?',
-			message: 'Al aseptar, se borrara tu cuenta permanentemente',
-			buttons:[
-				{
-				text:'Cancelar',
-				handler: ()=>{
-					return false;
-					console.log("se a cancelado")					
-					}
-				},
-				{
-				text:'Si',
-				handler: ()=>{
-					return true;
-					console.log("se a eliminara esta cuenta")
-					}
-				}
-			]
+	
+	loadingSpinner(){
+		this.loading = this.loadingCtrl.create({
+		content: "Espere un momento..."
 		})
-     }
-     */
-     
+	  }
 
-      presentToast(message, time, position){
-		let toast = this.toastCtrl.create({
+      presentToast(message){
+		this.toast = this.toastCtrl.create({
 			message: message,
-			duration: time,
-			position: position
+			duration: 3000,
+			position: 'top'
 		});
-		toast.onDidDismiss(() => {
-			console.log('Dismissed toast')
-		});
-		toast.present();
 	}
 
   /**
    * notNullValueLogin
    */
+   
+   
   public notNullValueLogin(json) {
-	  let username = json.username , password = json.password;
+   /**
+   *  indexOf() me devuelve el -1 si no ecuentra lo que busco
+   *  y un indice entero si lo encuentra
+   * example, 
+   *  cadena = "hola mundo";
+   * if(cadena.indexOf("m") != -1{
+   *  	alert("la m fue encontrada") 
+   *  }
+   */
+
+	let username = json.username , password = json.password;
 	  if(username == '' && password == ''){
 		  this.Alert('A ocuarrido un error',' Debes de llenar todos los campos');
 		  return true;
@@ -84,7 +77,6 @@ export class Service{
 
   public notNullValueSignUp(json){
 	  console.log(json);
-	  
 	  if(json.username=="" || json.name=="" || json.lastname=="" || json.email=="" || json.password=="" || json.confirPassword==""){
 		  this.Alert('Por favor llene todos los campos','OK para continuar');
 		  return true
@@ -93,7 +85,7 @@ export class Service{
 		  this.Alert('Las contraseñas introducidas no coinciden','Por favor intente de nuevo');   
 		  return true      
 	  }
-	  //else if("la contraseña no debe contener menos de ocho caracteres"){}
+	  
 	  
   }
   
@@ -105,7 +97,6 @@ export class Service{
 		  return true;
 	  }
    }
-
 
 }
 

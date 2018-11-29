@@ -7,22 +7,27 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
-import { LoginPage } from '../pages/login/login';
-import { SignupPage } from '../pages/signup/signup';
-import { DashboardPage } from '../pages/dashboard/dashboard';
-import { MyProductsPage } from '../pages/my-products/my-products';
-import { ProfilePage } from '../pages/profile/profile';
 import { TabsPage } from '../pages/tabs/tabs';
 import { MenuPage } from '../pages/menu/menu';
+
+import { LoginPage } from '../pages/login/login';
+import { SignupPage } from '../pages/signup/signup';
+
+import { MyProductsPage } from '../pages/my-products/my-products';
+import { ProfilePage } from '../pages/profile/profile';
 import { DetailProductPage } from '../pages/detail-product/detail-product';
 import { ConfigPage } from '../pages/config/config';
 import { MyDataPage } from '../pages/my-data/my-data';
- 
+
+import { DashboardPage } from '../pages/dashboard/dashboard';
+import { DetailProductCatalogPage } from '../pages/detail-product-catalog/detail-product-catalog';
+import { CommentProductPage } from '../pages/comment-product/comment-product';
 
 import { HttpClientModule } from '@angular/common/http';
 import { HttpProvider } from '../providers/http/http';
 import { Service } from '../service/service.service';
 import { IonicStorageModule } from '@ionic/storage';
+
 
 
 @NgModule({
@@ -38,7 +43,9 @@ import { IonicStorageModule } from '@ionic/storage';
     MenuPage,
     DetailProductPage,
     ConfigPage,
-    MyDataPage
+    MyDataPage,
+    DetailProductCatalogPage,
+    CommentProductPage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +66,9 @@ import { IonicStorageModule } from '@ionic/storage';
     MenuPage,
     DetailProductPage,
     ConfigPage,
-    MyDataPage
+    MyDataPage,
+    DetailProductCatalogPage,
+    CommentProductPage
   ],
   providers: [
     StatusBar,

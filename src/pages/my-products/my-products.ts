@@ -29,7 +29,7 @@ export class MyProductsPage {
 			  public storage: Storage,
 			  public http: HttpProvider) {
                 
-          this.refresh();
+          
           
   }
 
@@ -39,11 +39,11 @@ export class MyProductsPage {
 
   goToDetail(id){
 	  console.log("voy a detalles de nota")
-	  this.navCtrl.push(DetailProductPage,{id:id});
+	  this.navCtrl.push(DetailProductPage,{id_product:id});
   }
   
   createProduct(){
-      this.navCtrl.push(DetailProductPage,{id:0});
+      this.navCtrl.push(DetailProductPage,{id_product:0});
   }
 
   refresh(){
@@ -55,6 +55,10 @@ export class MyProductsPage {
 			  console.log(res);
             });
           });
+  }
+  
+  ionViewWillEnter(){
+	this.refresh();
   }
 
 }

@@ -11,8 +11,8 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class HttpProvider {
 
-  //url = "http://localhost:8080/SHOPPING_CAR/"; 
-  url = "http://192.168.43.92:8080/SHOPPING_CAR/"; 
+  url = "http://localhost:8080/SHOPPING_CAR/"; 
+  //url = "http://192.168.43.92:8080/SHOPPING_CAR/"; 
   constructor(public http: HttpClient) {
     console.log('Hello HttpProvider Provider');
   }
@@ -61,6 +61,18 @@ export class HttpProvider {
 	  return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
   }
   
+
+  listProductAll(user):Observable<any>{
+	  return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
+  }
+
+  detailProduct(user):Observable<any>{
+    return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
+  }
+  
+  post(user):Observable<any>{
+    return this.http.post(`${this.url}/`, {user}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});	
+  }
   
   
   /*

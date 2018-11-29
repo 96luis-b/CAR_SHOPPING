@@ -1,5 +1,7 @@
+import { Service } from '../../service/service.service';
+
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Nav, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Nav, AlertController, LoadingController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { MyProductsPage } from '../my-products/my-products';
 import { ConfigPage } from '../config/config';
@@ -28,7 +30,9 @@ export class MenuPage {
   constructor(public navCtrl: NavController, 
 			  public navParams: NavParams,
 			  public alertCtrl: AlertController,
-			  public storage: Storage) {
+			  public storage: Storage,
+			  public service: Service,
+			  public loadingCtrl: LoadingController) {
     this.pages = [
 	  {title: 'Mis Productos', component: MyProductsPage, icon:'ios-list-outline'},
       {title: 'Configuraciones', component: ConfigPage, icon:'settings'}
@@ -52,8 +56,11 @@ export class MenuPage {
 				text:"Si", 
 				handler: ()=>{
 					console.log("se cerrara la sesion");
-					this.storage.clear().then(() => {});
-					this.navCtrl.setRoot(HomePage)
+					this.storage.clear().then(() => {
+						this.service.loadingSpinner();
+						this.navCtrl.setRoot(HomePage)
+						});
+					
 					}
 			   },
 				{

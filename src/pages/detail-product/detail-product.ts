@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { Service } from '../../service/service.service';
@@ -18,10 +18,11 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'detail-product.html',
 })
 export class DetailProductPage {
-
-  product = {id:null, title:'', description:'', price:null, existence: null};
+	
+	@ViewChild('existence') existence;
+  product = {id_product:null, name_product:'', description:'', price:null, existence: null};
 	data = {
-			id:null,
+			id_product:null,
 			user:null,
 			product:null,
 			path:null
@@ -30,31 +31,29 @@ export class DetailProductPage {
 			   data:null,
 			   product:null
 			   }
-  id;
+  id_product;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public http: HttpProvider,
               public service: Service,
-			  public storage: Storage){
-			  this.id = navParams.get("id");
-			  console.log(this.product);
-			  console.log(this.id);
+			        public storage: Storage){
+			  this.id_product = navParams.get("id_product");
 	
     this.storage.get('user').then((data) => {
-      console.log(data)
       this.data.user = data;
 	  
-	  if(this.id!=0){
-		  this.data.id = this.id;
-		  this.data.path = "detailMyProduct"
-		  this.http.detailMyProduct(this.data).subscribe(res=>{
-		  this.product = res.product;
-		  console.log(this.product)
-		  console.log(res);
-		  })
-		console.log(this.data);
-		}
+      if(this.id_product!=0){
+        this.data.id_product = this.id_product;
+        this.data.path = "detailMyProduct"
+        this.http.detailMyProduct(this.data).subscribe(res=>{
+		console.log(res);
+		console.log(res.product);
+        this.product = res.product;
+        
+        })
+
+      }
 	  
     });
 
@@ -65,8 +64,13 @@ export class DetailProductPage {
   }
 
   addProduct(){
-	 this.data.product = this.product;
-    if(this.id != 0){
+	/**
+	*   al parecer
+	*   el problema recae en el limite de bits
+	*   que puede llegar a tener una variable int
+	*/
+	  this.data.product = this.product;
+	  if(this.id_product != 0){
       this.data.path = "updateProduct";
       this.http.updateProduct(this.data).subscribe(data=>{
         this.service.Alert(data.message," OK para continuar");

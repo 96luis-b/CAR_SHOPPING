@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Nav } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { MyProductsPage } from '../my-products/my-products';
+import { Service } from '../../service/service.service';
+import { Storage } from '@ionic/storage';
 
 export interface PageInterface{
 	title:string;
@@ -26,14 +28,23 @@ export interface PageInterface{
 export class ProfilePage {
 
   rootPage = TabsPage;
-	
+	username;
 	@ViewChild(Nav) nav: Nav;
 	pages: PageInterface[] = [
 		{title:'MyProducts', pageName:MyProductsPage, icon:'shuffle'}
 		
 	]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+			  public navParams: NavParams,
+			  public service: Service,
+			  public storage: Storage) {
+			 
+			  this.storage.get('user').then((data) => {
+				this.username = data;
+			  })
+			  
+  
   }
 
   ionViewDidLoad() {
