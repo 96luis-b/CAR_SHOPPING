@@ -44,15 +44,57 @@
   -->
   
 <ion-searchbar [(ngModel)]="search" (ionInput)="searchProduct($event)"></ion-searchbar>
-  <ion-list inset *ngIf="search != ''">
+  
+
+  <ion-list inset *ngIf="justWatch">
 	<button ion-item *ngFor="let p of product" (click)="viewList(p.id_product, p)">
 		{{p.name_product}}
 	</button>
   </ion-list>
-   
-      
-     
+  
+   <!--
+  <ion-list inset *ngIf="selection">
+    <ion-item  *ngFor="let p of product">
+			<ion-label>{{p.name_product}}</ion-label>
+			<ion-checkbox (click)="selected(p)"></ion-checkbox>
+	</ion-item>
+  </ion-list>
+-->
+
+  <ion-grid *ngIf="selection">
+      <ion-row>
+        <ion-col col-1>
+          <ion-list no-lines>
+            <ion-item *ngFor="let p of product">
+                <ion-checkbox (click)="selected(p)"></ion-checkbox>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-9>
+          <!-- no-lines -->
+          <ion-list>
+            <ion-item *ngFor="let p of product">
+             <ion-label>{{p.name_product}}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  <div>
+	<button ion-button block *ngIf="justWatch" (click)="activeSelection()">Lista de seleción</button>
+	<button ion-button block *ngIf="selection" (click)="activeDetail()">Lista de detalle</button>
+	<button ion-button block *ngIf="selection" (click)="shoppingCar()">Carrito</button>
+  </div>
+  
+  
     <!--
+	
+	<button ion-item color="danger" (click)="viewList(p.id_product, p)">
+		<h2>{{p.name_product}}</h2>
+	</button>
+	
+	
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>

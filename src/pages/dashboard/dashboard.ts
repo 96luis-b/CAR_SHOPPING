@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { HttpProvider } from '../../providers/http/http';
+import { ProductProvider } from '../../providers/product/product';
 import { DetailProductCatalogPage } from '../detail-product-catalog/detail-product-catalog';
+import { CarPage } from '../car/car';
+import { CarritoPage } from '../carrito/carrito';
 import { Storage } from '@ionic/storage';
 import { Service } from '../../service/service.service';
 
@@ -16,20 +18,21 @@ import { Service } from '../../service/service.service';
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html',
+  styles: ['dashboard.scss']
 })
 export class DashboardPage {
+	justWatch: Boolean = true;
+	selection: Boolean = false;
 	
 	product:any;
-	data = {
-			path:"listProductAll"
-			}
 	listProduct:any;
 	search;
 	active = false;
+	car = [];
 	
   constructor(public navCtrl: NavController, 
 			  public navParams: NavParams,
-			  public http: HttpProvider,
+			  public http: ProductProvider,
 			  public alertCtrl: AlertController,
 			  public storage: Storage,
 			  public service: Service) {
@@ -40,6 +43,20 @@ export class DashboardPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DashboardPage');
+  }
+  ionViewWillEnter(){
+	console.log("se activo viewWillEnter");
+	
+	/**
+	*	al regresar al dashboard con el boton de retroseso
+	*	que trae por defecto ionic, no carga de nuevo la
+	*  pagina dashboard, sino que la mantiene activa
+	*	
+	* solucion: eliminar los nav de retorceso por defecto y 
+	* crear los para navegar y cargar las pagina al retroceder
+	*/
+	
+	this.refresh();
   }
   
    Alert(title, subtitle){
@@ -70,22 +87,34 @@ export class DashboardPage {
 		
 	}
 	
-	
-	
   }
   
-  ionViewWillEnter(){
-	this.refresh();
+  shoppingCar(){
+	this.navCtrl.push(CarPage,{car:this.car});
   }
   
+  selected(product){
+	console.log(product);
+	for(let i=0; i<this.car.length; i++){
+		if(this.car[i].id_product == product.id){
+			this.car.splice(i,1);
+			return;
+		}
+	}
+	this.car.push(product);
+  }
+  
+   
   refresh(){
+  
+		console.log("refresh");
 			  this.service.loadingSpinner();
 			  this.service.loading.present();
 	  	this.storage.get('user').then((data) => {
 					console.log(data)
 					});
 		console.log(this.active);
-		this.http.listProductAll(this.data).subscribe(data=>{
+		this.http.listProductAll().subscribe(data=>{
 			this.service.loading.dismiss();
 			console.log(data);
 			this.listProduct = data.listProductAll;
@@ -96,5 +125,18 @@ export class DashboardPage {
 		})
   }
   
+  activeSelection(){
+	this.justWatch = false;
+	this.selection = true;
+  }
+  activeDetail(){
+	this.justWatch = true;
+	this.selection = false;
+  }
+
+  
+  
+  
+ 
 
 }

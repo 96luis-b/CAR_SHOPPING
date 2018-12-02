@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
+import { Service } from '../../service/service.service';
 /*
   Generated class for the HttpProvider provider.
 
@@ -11,10 +11,11 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class HttpProvider {
 
-  url = "http://localhost:8080/SHOPPING_CAR/"; 
-  //url = "http://192.168.43.92:8080/SHOPPING_CAR/"; 
+  url;
   constructor(public http: HttpClient) {
     console.log('Hello HttpProvider Provider');
+	//console.log(this.service.url);
+	//this.url = this.service.url;
   }
 
   login(path, user):Observable<any>{

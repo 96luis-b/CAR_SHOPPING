@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HttpProvider } from '../../providers/http/http';
+import { ProductProvider } from '../../providers/product/product';
 import { Service } from '../../service/service.service';
 import { DashboardPage } from '../dashboard/dashboard'
 import { Storage } from '@ionic/storage';
@@ -24,20 +24,15 @@ export class DetailProductPage {
 	data = {
 			id_product:null,
 			user:null,
-			product:null,
-			path:null
+			product:null
 			};
-	package = {
-			   data:null,
-			   product:null
-			   }
   id_product;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              public http: HttpProvider,
+              public http: ProductProvider,
               public service: Service,
-			        public storage: Storage){
+			  public storage: Storage){
 			  this.id_product = navParams.get("id_product");
 	
     this.storage.get('user').then((data) => {
@@ -45,7 +40,6 @@ export class DetailProductPage {
 	  
       if(this.id_product!=0){
         this.data.id_product = this.id_product;
-        this.data.path = "detailMyProduct"
         this.http.detailMyProduct(this.data).subscribe(res=>{
 		console.log(res);
 		console.log(res.product);
@@ -62,6 +56,10 @@ export class DetailProductPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailProductPage');
   }
+  loading(){
+	this.service.loadingSpinner();
+	this.service.loading.present();
+  }
 
   addProduct(){
 	/**
@@ -69,20 +67,22 @@ export class DetailProductPage {
 	*   el problema recae en el limite de bits
 	*   que puede llegar a tener una variable int
 	*/
+		this.loading;
 	  this.data.product = this.product;
 	  if(this.id_product != 0){
-      this.data.path = "updateProduct";
       this.http.updateProduct(this.data).subscribe(data=>{
-        this.service.Alert(data.message," OK para continuar");
+	  this.service.loading.dismiss();
+        //this.service.Alert(data.message," OK para continuar");
         this.navCtrl.pop();
         return;
       })
       
     }else{
-      this.data.path = "craeteProduct"; 
 	  console.log(this.data)
-      this.http.addProduct(this.data).subscribe(data=>{
-        this.service.Alert(data.message,"OK para continuar");
+	  this.loading;
+      this.http.createProduct(this.data).subscribe(data=>{
+	  this.service.loading.dismiss();
+        //this.service.Alert(data.message,"OK para continuar");
         this.navCtrl.pop();
         return;
       })
@@ -90,9 +90,8 @@ export class DetailProductPage {
 }
 
 deleteProduct(){
-    this.data.path = "deleteProduct"; 
-    this.http.deleteProduct(this.data).subscribe(data=>{
-        this.service.Alert(data.message," OK para continuar");
+    this.http.deleteProduct(this.id_product).subscribe(data=>{
+       // this.service.Alert(data.message," OK para continuar");
         this.navCtrl.pop();
       })
   }

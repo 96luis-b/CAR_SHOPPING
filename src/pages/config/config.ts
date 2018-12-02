@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { MyDataPage } from '../my-data/my-data';
 import { Service } from '../../service/service.service';
-import { HttpProvider } from '../../providers/http/http';
+import { ProfileProvider } from '../../providers/profile/profile';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 
@@ -21,15 +21,14 @@ import { HomePage } from '../home/home';
 export class ConfigPage {
 
 	user = {
-			user:null,
-			path:null
+			user:null
 			}
 
   constructor(public navCtrl: NavController,
 		      public navParams: NavParams,
 			  public service: Service,
 			  public alertCtrl: AlertController,
-			  public http: HttpProvider,
+			  public http: ProfileProvider,
 			  public storage: Storage) {
 			  
 			  this.storage.get('user').then((data) => {
@@ -55,7 +54,6 @@ export class ConfigPage {
 				text:"Si", 
 				handler: ()=>{
 					console.log("se borrara esta cuenta");
-					this.user.path = "deleteUserProfile"
 					this.http.deleteUserProfile(this.user).subscribe(data => {
 						if(data.status >= 200 && data.status < 300){
 							this.storage.clear().then(() => {

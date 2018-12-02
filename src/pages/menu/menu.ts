@@ -4,6 +4,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Nav, AlertController, LoadingController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { MyProductsPage } from '../my-products/my-products';
+import { CarPage } from '../car/car';
 import { ConfigPage } from '../config/config';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
@@ -34,12 +35,9 @@ export class MenuPage {
 			  public service: Service,
 			  public loadingCtrl: LoadingController) {
     this.pages = [
-	  {title: 'Mis Productos', component: MyProductsPage, icon:'ios-list-outline'},
-      {title: 'Configuraciones', component: ConfigPage, icon:'settings'}
-														//cog
-														//construct
-														//settings
-      //{title: 'Configuracion', component: ConfigPage, icon:'add'}
+	  {title: 'Mis Productos', component: MyProductsPage, icon:'list-box'},
+      {title: 'Configuraciones', component: ConfigPage, icon:'settings'},
+	  {title: 'Carrito', component: CarPage, icon:'cart'}
       ];
   }
 

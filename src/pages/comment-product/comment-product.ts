@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HttpProvider } from '../../providers/http/http';
+import { CommentProvider } from '../../providers/comment/comment';
 import { Service } from '../../service/service.service';
 import { Storage } from '@ionic/storage';
 
@@ -26,13 +26,12 @@ export class CommentProductPage {
 	data = {
 			id_product:null,
 			username:null,
-			path:"getComments"
 			}
+			
 	dataInsertComment = {
 				  id_product:null,
 				  comment:null,
 				  username:null,
-				  path:"addComment"
 				 }
 	newComment = { 
 				  id_comment:null,
@@ -41,10 +40,10 @@ export class CommentProductPage {
 				 
   constructor(public navCtrl: NavController, 
 			  public navParams: NavParams,
-			  public http: HttpProvider,
+			  public http: CommentProvider,
 			  public service: Service,
 			  public storage: Storage) {
-				
+			
 		this.data.id_product = navParams.get("id_product");
 		this.dataInsertComment.id_product = navParams.get("id_product");
 		this.storage.get('user').then((data) => {
@@ -53,7 +52,7 @@ export class CommentProductPage {
 			this.dataInsertComment.username = data;
 			this.data.username = data;
 			console.log(this.dataInsertComment);
-			this.getComments();
+			//this.getComments();
 		});
 		
   }
@@ -61,6 +60,11 @@ export class CommentProductPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommentProductPage');
   }
+   
+   ionViewWillEnter(){
+    this.getComments();
+  }
+  
   
   createComment(){
   
@@ -71,6 +75,32 @@ export class CommentProductPage {
   }
   
   addComment(){
+  
+		this.service.loadingSpinner();
+		this.service.loading.present();
+		this.newComment.desc_comment = this.desc_newComment.value;
+		this.dataInsertComment.comment = this.newComment;
+		
+	
+	this.http.addComment(this.dataInsertComment).subscribe(data=>{
+		 if(data.status >= 200 && data.status < 300){
+			console.log(data);
+		  }
+		 //this.service.Alert(data.message, "Ok para continuar");
+		 
+		 this.textarea = false;
+		 this.add = true;
+		 this.service.loading.dismiss();
+		 this.getComments();
+		},error => {
+		  this.service.Alert("Error de conexion", "Intente mas tarde")
+		  console.log(error);
+				});
+		
+  }
+  
+  deleteComment(){
+  
 		this.service.loadingSpinner();
 		this.service.loading.present();
 		this.newComment.desc_comment = this.desc_newComment.value;
@@ -79,12 +109,12 @@ export class CommentProductPage {
 	
 	console.log(this.dataInsertComment);
 	
-	this.http.post(this.dataInsertComment).subscribe(data=>{
+	this.http.deleteComment(this.dataInsertComment).subscribe(data=>{
 		 if(data.status >= 200 && data.status < 300){
 			console.log(data);
 		  }
 		 //this.service.Alert(data.message, "Ok para continuar");
-		 this.getComments();
+		
 		 this.textarea = false;
 		 this.add = true;
 		 this.service.loading.dismiss();
@@ -92,15 +122,26 @@ export class CommentProductPage {
 		  this.service.Alert("Error de conexion", "Intente mas tarde")
 		  console.log(error);
 				});
-	
 		
   }
   
   getComments(){
+  
+	this.service.loadingSpinner();
+	this.service.loading.present();
 	console.log(this.data);
-	this.http.post(this.data).subscribe(data=>{
+	
+	this.storage.get('user').then((data) => {
+		console.log(data);
+			
+			this.dataInsertComment.username = data;
+			this.data.username = data;
+			console.log(this.dataInsertComment);
+			
+			this.http.getComments(this.data).subscribe(data=>{
 		 if(data.status >= 200 && data.status < 300){
 			this.comments = data.comments;
+			this.service.loading.dismiss();
 			console.log(data)
 		  }
 		 //this.service.Alert(data.message, "Ok para continuar");
@@ -108,7 +149,10 @@ export class CommentProductPage {
 		  this.service.Alert("Error de conexion", "Intente mas tarde")
 		  console.log(error);
 				})
+			
+		});
+	
   
   }
 
-}
+	}

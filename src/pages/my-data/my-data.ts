@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HttpProvider } from '../../providers/http/http'
+import { ProfileProvider } from '../../providers/profile/profile'
 import { Service } from '../../service/service.service';
 import { Storage } from '@ionic/storage';
 
@@ -23,7 +23,6 @@ export class MyDataPage {
       name:'',
       lastname:'',
       email:'',
-      path:'getDataUserProfile'
       }
    comparacion = {
 				  username:null,
@@ -35,7 +34,7 @@ export class MyDataPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public service: Service,
-              public http: HttpProvider,
+              public http: ProfileProvider,
 			  public storage: Storage) {
 
     this.storage.get("user").then((res)=>{
@@ -44,7 +43,8 @@ export class MyDataPage {
 	  console.log(this.data);
 	  
 	  this.http.getDataUserProfile(this.data).subscribe(data=>{
-          if(data.status >= 200 && data.status < 300){
+          console.log(data)
+		  if(data.status >= 200 && data.status < 300){
 			console.log(data)
             this.data = data.data;
 			
@@ -64,11 +64,14 @@ export class MyDataPage {
   }
 
   editProfile(){
-    this.data.path = "updateUserProfile"
+	this.service.loadingSpinner();
+	this.service.loading.present();
 	console.log(this.data);
       this.http.updateUserProfile(this.data).subscribe(data => {
-        if(data.status >= 200 && data.status < 300){
-          //this.data = data.data;
+        console.log(data);
+		if(data.status >= 200 && data.status < 300){
+		  console.log(data);
+		  this.service.loading.dismiss();
           this.navCtrl.pop();
         }
         this.service.Alert(data.message,"OK para continuar");

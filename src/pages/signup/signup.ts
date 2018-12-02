@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Service } from '../../service/service.service';
-import { HttpProvider } from '../../providers/http/http';
+import { SessionProvider } from '../../providers/session/session';
 
 
 /**
@@ -25,13 +25,12 @@ export class SignupPage {
     email:"",
     password:"",
     confirPassword:"",
-    path:"signUp"
     }
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public service: Service,
-              public http: HttpProvider,
+              public http: SessionProvider,
               public alertCtrl: AlertController) {}
 
   ionViewDidLoad() {
@@ -50,7 +49,6 @@ export class SignupPage {
   signUp(){
 	this.service.loadingSpinner();
 	this.service.loading.present();
-	console.log("por aqui signUp")
     if(this.service.notNullValueSignUp(this.user)){
 		console.log("no se hizo la peticion")
 		return;

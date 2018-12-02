@@ -18,6 +18,8 @@ import { ProfilePage } from '../pages/profile/profile';
 import { DetailProductPage } from '../pages/detail-product/detail-product';
 import { ConfigPage } from '../pages/config/config';
 import { MyDataPage } from '../pages/my-data/my-data';
+import { CarPage } from '../pages/car/car';
+import { CarritoPage } from '../pages/carrito/carrito';
 
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { DetailProductCatalogPage } from '../pages/detail-product-catalog/detail-product-catalog';
@@ -27,6 +29,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpProvider } from '../providers/http/http';
 import { Service } from '../service/service.service';
 import { IonicStorageModule } from '@ionic/storage';
+import { SessionProvider } from '../providers/session/session';
+import { ProductProvider } from '../providers/product/product';
+import { CommentProvider } from '../providers/comment/comment';
+import { ProfileProvider } from '../providers/profile/profile';
+import { CarProvider } from '../providers/car/car';
 
 
 
@@ -45,7 +52,9 @@ import { IonicStorageModule } from '@ionic/storage';
     ConfigPage,
     MyDataPage,
     DetailProductCatalogPage,
-    CommentProductPage
+    CommentProductPage,
+	CarPage,
+	CarritoPage
   ],
   imports: [
     BrowserModule,
@@ -68,14 +77,21 @@ import { IonicStorageModule } from '@ionic/storage';
     ConfigPage,
     MyDataPage,
     DetailProductCatalogPage,
-    CommentProductPage
+    CommentProductPage,
+	CarPage,
+	CarritoPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpProvider,
-    Service
+    Service,
+    SessionProvider,
+    ProductProvider,
+    CommentProvider,
+    ProfileProvider,
+    CarProvider
   ]
 })
 export class AppModule {}

@@ -16,7 +16,16 @@
 <ion-content padding>
 	<ion-card>
     <ion-list>
-	  <ion-card class="cardList" *ngFor="let comment of comments">{{comment.desc_comment}}</ion-card>
+	  <ion-card class="cardList" *ngFor="let comment of comments">{{comment.desc_comment}}
+		<ion-buttons end>
+			 <button ion-button icon-only *ngIf="comment.myComment" (click)="editComment()">
+				<ion-icon  name="create"></ion-icon>
+			 </button>
+			 <button ion-button icon-only *ngIf="comment.optionDelete || comment.myComment" (click)="deleteProduct()">
+				<ion-icon  name="trash"></ion-icon>
+			 </button>
+		</ion-buttons>
+	  </ion-card>
 	</ion-list>
 	</ion-card>
   <ion-item *ngIf="textarea">

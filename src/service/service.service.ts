@@ -4,8 +4,10 @@ import { HttpProvider } from '../providers/http/http';
 
 @Injectable()
 export class Service{
-
-    loading;
+	url = "http://localhost:8080/SHOPPING_CAR_2.0/"; 
+	//url = "http://192.168.43.92:8080/SHOPPING_CAR_2.0/";
+    
+	loading;
 	toast;
     constructor(public alertCtrl: AlertController,
 				private toastCtrl: ToastController,
