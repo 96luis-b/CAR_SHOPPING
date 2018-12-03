@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AlertController, ToastController, LoadingController} from 'ionic-angular';
 import { HttpProvider } from '../providers/http/http';
+import { copyInputAttributes } from 'ionic-angular/util/dom';
 
 @Injectable()
 export class Service{
@@ -27,6 +28,33 @@ export class Service{
         });
         alert.present();
     }
+	
+	showEditComment(){
+        let alert = this.alertCtrl.create({
+			title:"Comentario",
+			inputs:[
+				{
+					name:"comment"
+				}
+			],
+            buttons: [
+			   {
+				text:"Guardar", 
+				handler: (name)=>{
+					console.log("se ha guardado "+name);
+					}
+			   },
+				{
+				text:"Cancelar",
+				handler: ()=>{
+					console.log("Cancelado");						
+				}
+			}
+			]
+        });
+        alert.present();
+    }
+  
 	
 	loadingSpinner(){
 		this.loading = this.loadingCtrl.create({

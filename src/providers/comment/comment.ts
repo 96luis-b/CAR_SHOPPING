@@ -27,6 +27,10 @@ export class CommentProvider {
     return this.http.post(`${this.url}AddComment`, {comment}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
   }
   deleteComment(comment):Observable<any>{
-    return this.http.post(`${this.url}AddComment`, {comment}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+    return this.http.post(`${this.url}DeleteComment`, {comment}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
   }
+  updateComment(comment):Observable<any>{
+    return this.http.post(`${this.url}updateComment`, {comment}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+  }
+  
 }

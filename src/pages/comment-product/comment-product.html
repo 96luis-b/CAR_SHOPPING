@@ -18,10 +18,10 @@
     <ion-list>
 	  <ion-card class="cardList" *ngFor="let comment of comments">{{comment.desc_comment}}
 		<ion-buttons end>
-			 <button ion-button icon-only *ngIf="comment.myComment" (click)="editComment()">
+			 <button ion-button icon-only *ngIf="comment.myComment" (click)="editComment(comment)">
 				<ion-icon  name="create"></ion-icon>
 			 </button>
-			 <button ion-button icon-only *ngIf="comment.optionDelete || comment.myComment" (click)="deleteProduct()">
+			 <button ion-button icon-only *ngIf="comment.optionDelete || comment.myComment" (click)="deleteComment(comment)">
 				<ion-icon  name="trash"></ion-icon>
 			 </button>
 		</ion-buttons>

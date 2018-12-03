@@ -99,17 +99,15 @@ export class CommentProductPage {
 		
   }
   
-  deleteComment(){
+  deleteComment(comment){
   
 		this.service.loadingSpinner();
 		this.service.loading.present();
-		this.newComment.desc_comment = this.desc_newComment.value;
-		this.dataInsertComment.comment = this.newComment;
-		console.log(this.dataInsertComment)
+		
+		console.log(comment)
+		
 	
-	console.log(this.dataInsertComment);
-	
-	this.http.deleteComment(this.dataInsertComment).subscribe(data=>{
+	this.http.deleteComment(comment).subscribe(data=>{
 		 if(data.status >= 200 && data.status < 300){
 			console.log(data);
 		  }
@@ -118,11 +116,18 @@ export class CommentProductPage {
 		 this.textarea = false;
 		 this.add = true;
 		 this.service.loading.dismiss();
+		 this.getComments();		 
 		},error => {
 		  this.service.Alert("Error de conexion", "Intente mas tarde")
 		  console.log(error);
 				});
 		
+  }
+  
+  editComment(comment){
+	console.log(comment);
+	this.service.showEditComment();
+	
   }
   
   getComments(){
